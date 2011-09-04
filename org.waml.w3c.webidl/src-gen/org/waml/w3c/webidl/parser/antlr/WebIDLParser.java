@@ -3,14 +3,9 @@
 */
 package org.waml.w3c.webidl.parser.antlr;
 
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.TokenSource;
-import org.eclipse.xtext.parser.IParseResult;
-import org.eclipse.xtext.parser.ParseException;
-import org.eclipse.xtext.parser.antlr.XtextTokenStream;
-
 import com.google.inject.Inject;
 
+import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.waml.w3c.webidl.services.WebIDLGrammarAccess;
 
 public class WebIDLParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
@@ -19,25 +14,13 @@ public class WebIDLParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPa
 	private WebIDLGrammarAccess grammarAccess;
 	
 	@Override
-	protected IParseResult parse(String ruleName, CharStream in) {
-		TokenSource tokenSource = createLexer(in);
-		XtextTokenStream tokenStream = createTokenStream(tokenSource);
+	protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
 		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT");
-		org.waml.w3c.webidl.parser.antlr.internal.InternalWebIDLParser parser = createParser(tokenStream);
-		parser.setTokenTypeMap(getTokenDefProvider().getTokenDefMap());
-		parser.setSyntaxErrorProvider(getSyntaxErrorProvider());
-		parser.setUnorderedGroupHelper(getUnorderedGroupHelper().get());
-		try {
-			if(ruleName != null)
-				return parser.parse(ruleName);
-			return parser.parse();
-		} catch (Exception re) {
-			throw new ParseException(re.getMessage(),re);
-		}
 	}
 	
+	@Override
 	protected org.waml.w3c.webidl.parser.antlr.internal.InternalWebIDLParser createParser(XtextTokenStream stream) {
-		return new org.waml.w3c.webidl.parser.antlr.internal.InternalWebIDLParser(stream, getElementFactory(), getGrammarAccess());
+		return new org.waml.w3c.webidl.parser.antlr.internal.InternalWebIDLParser(stream, getGrammarAccess());
 	}
 	
 	@Override 

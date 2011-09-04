@@ -10,7 +10,7 @@ import org.eclipse.xtext.validation.ComposedChecks;
 @ComposedChecks(validators= {org.eclipse.xtext.validation.ImportUriValidator.class})
 public class AbstractWebIDLJavaValidator extends AbstractDeclarativeValidator {
 
-@Override
+	@Override
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>();
 	    result.add(org.waml.w3c.webidl.webIDL.WebIDLPackage.eINSTANCE);

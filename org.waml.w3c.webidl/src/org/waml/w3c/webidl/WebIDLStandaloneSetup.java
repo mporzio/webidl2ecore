@@ -3,7 +3,6 @@ package org.waml.w3c.webidl;
 
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
-import org.waml.w3c.webidl.scoping.WebIDLQualifiedNameProvider;
 import org.waml.w3c.webidl.scoping.WebIDLScopeProvider;
 
 /**

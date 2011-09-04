@@ -347,7 +347,7 @@ public class WebIDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
-		//ScopedName returns ecore::EString:
+		//ScopedName:
 		//	ID ("::" ID)*;
 		public ParserRule getRule() { return rule; }
 
@@ -613,7 +613,7 @@ public class WebIDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OverrideBuiltins");
 		private final Keyword cOverrideBuiltinsKeyword = (Keyword)rule.eContents().get(1);
 		
-		//OverrideBuiltins returns ecore::EString:
+		//OverrideBuiltins:
 		//	"OverrideBuiltins";
 		public ParserRule getRule() { return rule; }
 
@@ -2315,7 +2315,7 @@ public class WebIDLGrammarAccess extends AbstractGrammarElementFinder {
 		return getSequenceTypeAccess().getRule();
 	}
 
-	//ScopedName returns ecore::EString:
+	//ScopedName:
 	//	ID ("::" ID)*;
 	public ScopedNameElements getScopedNameAccess() {
 		return (pScopedName != null) ? pScopedName : (pScopedName = new ScopedNameElements());
@@ -2377,7 +2377,7 @@ public class WebIDLGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoInterfaceObjectAccess().getRule();
 	}
 
-	//OverrideBuiltins returns ecore::EString:
+	//OverrideBuiltins:
 	//	"OverrideBuiltins";
 	public OverrideBuiltinsElements getOverrideBuiltinsAccess() {
 		return (pOverrideBuiltins != null) ? pOverrideBuiltins : (pOverrideBuiltins = new OverrideBuiltinsElements());
@@ -2750,8 +2750,8 @@ public class WebIDLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" | "n" |
-	//	"f" | "r" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
+	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
+	//	"n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

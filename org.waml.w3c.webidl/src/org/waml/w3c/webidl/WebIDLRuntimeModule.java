@@ -3,9 +3,10 @@
  */
 package org.waml.w3c.webidl;
 
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
-import org.waml.w3c.webidl.scoping.WebIDLQualifiedNameProvider;
+import org.waml.w3c.webidl.scoping.WebIDLQualifiedNameConverter;
 import org.waml.w3c.webidl.scoping.WebIDLScopeProvider;
 
 /**
@@ -13,9 +14,9 @@ import org.waml.w3c.webidl.scoping.WebIDLScopeProvider;
  */
 public class WebIDLRuntimeModule extends org.waml.w3c.webidl.AbstractWebIDLRuntimeModule {
 
-	@Override
-	public Class<? extends IQualifiedNameProvider > bindIQualifiedNameProvider(){
-		return WebIDLQualifiedNameProvider.class;
+	
+	public Class<? extends IQualifiedNameConverter> bindIQualifiedNameConverter(){
+		return WebIDLQualifiedNameConverter.class;
 	}
 	
 	@Override

@@ -39,6 +39,5 @@ public class WebIDLStandaloneSetupGenerated implements ISetup {
 
 
 
-
 	}
 }

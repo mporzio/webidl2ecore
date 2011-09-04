@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.waml.w3c.webidl.webIDL.Argument;
 import org.waml.w3c.webidl.webIDL.Attribute;
@@ -23,7 +24,7 @@ import org.waml.w3c.webidl.webIDL.WebIDLPackage;
 public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 
 
-	protected void error(String string, EObject source, Integer feature, Integer code, String... issueData)
+	protected void error(String string, EObject source, EStructuralFeature feature, Integer code, String... issueData)
 	{
 		error(string,source,feature,Integer.toString(code),issueData);
 	}
@@ -38,7 +39,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				if (((Attribute) sibling).getName().equals(lName)  &&  sibling != aAttribute)
 				{
-					error(" Duplicate name '" + lName +"'", WebIDLPackage.ATTRIBUTE__NAME);
+					error(" Duplicate name '" + lName +"'", WebIDLPackage.Literals.INTERFACE_FEATURE__NAME);
 				}
 			}
 		}
@@ -71,14 +72,14 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				error(" Operation has no identier but is not a special operation (getter,setter,...) ", 
 						aOperation,
-						WebIDLPackage.OPERATION,
+						WebIDLPackage.Literals.OPERATION__SPECIALS,
 						ValidationErrorCode.OPERATION_MUST_BE_SPECIAL);
 			}
 			if (aOperation.isOmittable())
 			{
 				error(" Operation has no identifier but is declared as omittable ", 
 						aOperation,
-						WebIDLPackage.OPERATION,
+						WebIDLPackage.Literals.OPERATION__SPECIALS,
 						ValidationErrorCode.OPERATION_OMITTABLE);
 			}
 		}
@@ -120,7 +121,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 				{
 					error(" Operation "+aOperation.getName()+" is special but is variadic or with optional argument. ",
 							aOperation,
-							WebIDLPackage.OPERATION,
+							WebIDLPackage.Literals.OPERATION__SPECIALS,
 							ValidationErrorCode.SPECIAL_OPERATION_VARIADIC_OR_WITH_OPTIONAL_ARGS);
 				}
 			}
@@ -131,7 +132,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 				OperationSpecial lSpec = lOps.get(0);
 				error(" Special keyword "+lSpec.toString()+" is  declared twice on operation "+aOperation.getName(),
 						aOperation,
-						WebIDLPackage.OPERATION,
+						WebIDLPackage.Literals.OPERATION__SPECIALS,
 						ValidationErrorCode.SPECIAL_KEYWORD_NOT_UNIQUE);
 			}
 			else
@@ -144,7 +145,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 					{
 						error(" The operation "+aOperation.getName()+" is a getter or a deleter and has zero or more than one paramter",
 								aOperation,
-								WebIDLPackage.OPERATION,
+								WebIDLPackage.Literals.OPERATION__SPECIALS,
 								ValidationErrorCode.INVALID_GETTER_DELETER_CREATOR_SETTER_OPERATION);
 					}
 					else
@@ -154,7 +155,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 						{
 							error(" The operation "+aOperation.getName()+" is a getter and has an argument which is not an unsigned long nor a DOMString ",
 									aOperation,
-									WebIDLPackage.OPERATION,
+									WebIDLPackage.Literals.OPERATION__SPECIALS,
 									ValidationErrorCode.INVALID_GETTER_DELETER_CREATOR_SETTER_OPERATION);
 						}
 						
@@ -166,7 +167,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 					{
 						error(" The operation "+aOperation.getName()+" is a creator or a setter and has more than one paramter",
 								aOperation,
-								WebIDLPackage.OPERATION,
+								WebIDLPackage.Literals.OPERATION__SPECIALS,
 								ValidationErrorCode.INVALID_GETTER_DELETER_CREATOR_SETTER_OPERATION);
 					}
 					else
@@ -176,7 +177,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 						{
 							error(" The operation "+aOperation.getName()+" is a creator or a setter and has an argument which is not an unsigned long nor a DOMString ",
 									aOperation,
-									WebIDLPackage.OPERATION,
+									WebIDLPackage.Literals.OPERATION__SPECIALS,
 									ValidationErrorCode.INVALID_GETTER_DELETER_CREATOR_SETTER_OPERATION);
 						}
 					}
@@ -208,7 +209,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				error(" Stringifier operation "+ aOperation.getName()+" has more than zero argument or is not DOMString type",
 						aOperation,
-						WebIDLPackage.OPERATION,
+						WebIDLPackage.Literals.OPERATION__EXTENDED_ATTRIBUTES,
 						ValidationErrorCode.STRINGIFIER_OPERATION_HAS_ARGS_OR_NOT_RETURNS_DOMSTRING);
 			}
 					
@@ -249,7 +250,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				error(" The argument "+lArgPre.getName()+" that is not optionnal follow the argument "+lArg.getName()+" that is optionnal",
 						lArgPre,
-						WebIDLPackage.ARGUMENT,
+						WebIDLPackage.Literals.ARGUMENT__OPTIONAL,
 						ValidationErrorCode.LAST_OPTIONAL_ARG);
 				break;
 			}
@@ -259,7 +260,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 				error(" An argument that is not the last argument of the operation "+aOperation.getName()+ 
 					" argument list is a variadic argument (\"...\",",
 					aOperation,
-					WebIDLPackage.OPERATION,
+					WebIDLPackage.Literals.OPERATION__ARGUMENTS,
 					ValidationErrorCode.VARIADIC_OPERATOR_NOT_FINAL_ARG);
 				break;
 			}
@@ -286,7 +287,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				error("The attribute "+aAttribute.getName()+" is a stringifier but its type is not DOMString ",
 						aAttribute,
-						WebIDLPackage.ATTRIBUTE,
+						WebIDLPackage.Literals.ATTRIBUTE__TYPE,
 						ValidationErrorCode.STRINGIFIER_ATTRIBUTE_NOT_DOMSTRING);
 			}
 		}
@@ -346,7 +347,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 		{
 			error(" Interface "+aInterface.getName()+" has more than one stringifier or more than one of getter,setter,deleter,creator. ",
 					aInterface,
-					WebIDLPackage.INTERFACE,
+					WebIDLPackage.Literals.INTERFACE__MEMBERS,
 					ValidationErrorCode.TOO_MUCH_SPECIAL_INTERFACE_MEMBERS);
 		}else
 		{
@@ -364,7 +365,7 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 			{
 				error(" Interface "+aInterface.getName()+" has more than one stringifier.",
 						aInterface,
-						WebIDLPackage.INTERFACE,
+						WebIDLPackage.Literals.INTERFACE__MEMBERS,
 						ValidationErrorCode.TOO_MUCH_SPECIAL_INTERFACE_MEMBERS);
 			}
 		}
@@ -463,4 +464,16 @@ public class WebIDLJavaValidator extends AbstractWebIDLJavaValidator {
 		return ( aArgument.getType() instanceof PrimitiveTypeRef 
 				&& (((PrimitiveTypeRef)aArgument.getType()).getName().equals(aTypeName)));
 	}
+
+	/**
+	 *  This error signature, with index as last parameter, cause a nullpointerexception at assert step (AssertableDiagnostic), because 
+	 *  it left the issue code null. So we override the AbstractDeclarativeValidator, so that it calls the string as last parameter error signature
+	 */
+	@Override
+	protected void error(String message, EObject source,
+			EStructuralFeature feature, int index) {
+		super.error(message, source, feature, Integer.toString(index));
+	}
+	
+	
 }
